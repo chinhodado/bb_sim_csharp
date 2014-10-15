@@ -308,7 +308,7 @@ namespace bb_sim {
                     // protect this target, otherwise no protect can be activated to protect this target
                     // also, if the target has already been attacked (i.e. it protected another card before), then
                     // don't try to protect it
-                    if (!aoeReactiveSkillActivated && !targetsAttacked[targetCard.id]) {
+                    if (!aoeReactiveSkillActivated && !targetsAttacked.ContainsKey(targetCard.id)) {
                         var activated = battleModel.processProtect(executor, targetCard, skill, targetsAttacked, scaledRatio);
                         protectSkillActivated = activated;
                         if (protectSkillActivated) {
@@ -318,7 +318,7 @@ namespace bb_sim {
 
                     // if not protected, proceed with the attack as normal
                     // also need to make sure the target is not already attacked
-                    if (!protectSkillActivated && !targetsAttacked[targetCard.id]) {
+                    if (!protectSkillActivated && !targetsAttacked.ContainsKey(targetCard.id)) {
                         var defenseSkill = targetCard.getRandomDefenseSkill();
 
                         SkillLogicData defenseData = new SkillLogicData {

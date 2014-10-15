@@ -38,11 +38,11 @@ namespace bb_sim {
         private readonly List<Skill> activeSkills = new List<Skill>();
         private readonly List<Skill> protectSkills = new List<Skill>();
         readonly List<Skill> defenseSkills = new List<Skill>(); // does not contain survive skills
-        readonly List<Skill> ondeathSkills = new List<Skill>(); // first is buff, second is inherent
+        readonly List<Skill> ondeathSkills = new List<Skill>{null, null}; // first is buff, second is inherent
         private readonly Skill surviveSkill;
     
         public Card(int dbId, Player player, int nth, List<Skill> skills) {
-            var cardData = FamiliarDatabase.famDatabase[dbId];
+            var cardData = FamDatabase.get(dbId);
             name = cardData.name;
             fullName = cardData.fullName;
             this.dbId = dbId;

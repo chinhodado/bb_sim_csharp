@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace bb_sim {
     static class SkillCalc {
@@ -6,23 +7,25 @@ namespace bb_sim {
         public static double getDamageCalculatedByATK(Card attacker, Card defender, bool ignorePosition) {
             const double ATTACK_FACTOR = 0.3;
             const double DIFF_FACTOR = 0.2;
-    
-            var POS_ATTACK_FACTOR = new double[3];
-            POS_ATTACK_FACTOR[(int) FormationRow.REAR]  = 0.8;
-            POS_ATTACK_FACTOR[(int) FormationRow.MID]   = 1;
-            POS_ATTACK_FACTOR[(int) FormationRow.FRONT] = 1.2;
-    
-            var POS_DAMAGE_FACTOR = new double[3];
-            POS_DAMAGE_FACTOR[(int) FormationRow.REAR]  = 0.8;
-            POS_DAMAGE_FACTOR[(int) FormationRow.MID]   = 1;
-            POS_DAMAGE_FACTOR[(int) FormationRow.FRONT] = 1.2;
+
+            var POS_ATTACK_FACTOR = new Dictionary<FormationRow, double> {
+                {FormationRow.REAR, 0.8},
+                {FormationRow.MID, 1},
+                {FormationRow.FRONT, 1.2}
+            };
+
+            var POS_DAMAGE_FACTOR = new Dictionary<FormationRow, double> {
+                {FormationRow.REAR, 0.8},
+                {FormationRow.MID, 1},
+                {FormationRow.FRONT, 1.2}
+            };
     
             var baseDamage = attacker.getATK() * ATTACK_FACTOR;
             var damage = ((attacker.getATK() - defender.getDEF()) * DIFF_FACTOR) + baseDamage;
     
             if (!ignorePosition) {
-                damage *= POS_ATTACK_FACTOR[(int) attacker.getFormationRow()];
-                damage *= POS_DAMAGE_FACTOR[(int) defender.getFormationRow()];
+                damage *= POS_ATTACK_FACTOR[attacker.getFormationRow()];
+                damage *= POS_DAMAGE_FACTOR[defender.getFormationRow()];
             }
     
             //set lower limit
@@ -39,22 +42,24 @@ namespace bb_sim {
             const double ATTACK_FACTOR = 0.3;
             const double DIFF_FACTOR = 0.2;
 
-            var POS_ATTACK_FACTOR = new double[3];
-            POS_ATTACK_FACTOR[(int)FormationRow.REAR] = 0.8;
-            POS_ATTACK_FACTOR[(int)FormationRow.MID] = 1;
-            POS_ATTACK_FACTOR[(int)FormationRow.FRONT] = 1.2;
+            var POS_ATTACK_FACTOR = new Dictionary<FormationRow, double> {
+                {FormationRow.REAR, 0.8},
+                {FormationRow.MID, 1},
+                {FormationRow.FRONT, 1.2}
+            };
 
-            var POS_DAMAGE_FACTOR = new double[3];
-            POS_DAMAGE_FACTOR[(int)FormationRow.REAR] = 0.8;
-            POS_DAMAGE_FACTOR[(int)FormationRow.MID] = 1;
-            POS_DAMAGE_FACTOR[(int)FormationRow.FRONT] = 1.2;
+            var POS_DAMAGE_FACTOR = new Dictionary<FormationRow, double> {
+                {FormationRow.REAR, 0.8},
+                {FormationRow.MID, 1},
+                {FormationRow.FRONT, 1.2}
+            };
     
             var baseDamage = attacker.getAGI() * ATTACK_FACTOR;
             var damage = ((attacker.getAGI() - defender.getDEF()) * DIFF_FACTOR) + baseDamage;
     
             if (!ignorePosition) {
-                damage *= POS_ATTACK_FACTOR[(int)attacker.getFormationRow()];
-                damage *= POS_DAMAGE_FACTOR[(int)defender.getFormationRow()];
+                damage *= POS_ATTACK_FACTOR[attacker.getFormationRow()];
+                damage *= POS_DAMAGE_FACTOR[defender.getFormationRow()];
             }
     
             //set lower limit

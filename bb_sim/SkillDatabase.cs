@@ -1,27 +1,39 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
+using Newtonsoft.Json;
 
 namespace bb_sim {
-    struct SkillInfo {
-        public readonly string name;
-        public readonly SkillType type;
-        public readonly SkillFunc func;
-        public readonly SkillCalcType calc;
-        public readonly double arg1;
-        public readonly double arg2;
-        public readonly double arg3;
-        public readonly double arg4;
-        public readonly double arg5;
-        public readonly SkillRange range;
-        public readonly int prob;
-        public readonly WardType ward;
-        public readonly bool isAutoAttack;
-        public readonly string desc;
+    class SkillInfo {
+        public string name;
+        public SkillType type;
+        public SkillFunc func;
+        public SkillCalcType calc;
+        public double arg1;
+        public double arg2;
+        public double arg3;
+        public double arg4;
+        public double arg5;
+        public SkillRange range;
+        public int prob;
+        public WardType ward;
+        public bool isAutoAttack;
+        public string desc;
         public List<int> randSkills; 
     }
 
     class SkillDatabase {
-        private static Dictionary<int, SkillInfo> db;
+        private static readonly Dictionary<int, SkillInfo> db;
         static List<int> availableSkillsForSelect;
+
+        static SkillDatabase()  {
+            string skills = File.ReadAllText("skills.json");
+            JsonConvert.DefaultSettings = () => new JsonSerializerSettings {
+                MissingMemberHandling = MissingMemberHandling.Error
+            };
+
+            db = JsonConvert.DeserializeObject<Dictionary<int, SkillInfo>>(skills);
+        }
 
         public static SkillInfo get(int id) {
             return db[id];

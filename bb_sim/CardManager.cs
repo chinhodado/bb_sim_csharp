@@ -172,9 +172,12 @@ namespace bb_sim {
             var offsetArray = new[] {0, -1, 1, -2, 2, -3, 3, -4, 4};
         
             for (var i = 0; i < offsetArray.Length; i++) {
-                var currentOppCard = oppCards[executorIndex + offsetArray[i]];
-                if (currentOppCard != null && !currentOppCard.isDead) {
-                    return currentOppCard;
+                var index = executorIndex + offsetArray[i];
+                if (index >= 0 && index < oppCards.Count) {
+                    var currentOppCard = oppCards[index];
+                    if (currentOppCard != null && !currentOppCard.isDead) {
+                        return currentOppCard;
+                    }
                 }
             }
         

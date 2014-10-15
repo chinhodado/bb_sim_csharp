@@ -152,21 +152,21 @@ namespace bb_sim {
                 var card2 = new Card(p2_cardIds[i], player2, i, player2Skills);
 
                 if (i < 5) {
-                    p1_mainCards[i] = card1;
-                    p2_mainCards[i] = card2;
+                    p1_mainCards.Add(card1);
+                    p2_mainCards.Add(card2);
 
-                    p1_originalMainCards[i] = card1;
-                    p2_originalMainCards[i] = card2;
+                    p1_originalMainCards.Add(card1);
+                    p2_originalMainCards.Add(card2);
 
                     allCurrentMainCards.Add(card1);
                     allCurrentMainCards.Add(card2);
                 }
                 else if (i >= 5 && isBloodClash) {
-                    p1_reserveCards[i % 5] = card1;
-                    p2_reserveCards[i % 5] = card2;
+                    p1_reserveCards.Add(card1);
+                    p2_reserveCards.Add(card2);
 
-                    p1_originalReserveCards[i % 5] = card1;
-                    p2_originalReserveCards[i % 5] = card2;
+                    p1_originalReserveCards.Add(card1);
+                    p2_originalReserveCards.Add(card2);
                 }
 
                 allCardsById[card1.id] = card1;
@@ -180,7 +180,7 @@ namespace bb_sim {
          * Resets everything
          * Used for testing only
          */
-        static void resetAll() {
+        public static void resetAll() {
             removeInstance();
             CardManager.removeInstance();
         }
@@ -649,7 +649,7 @@ namespace bb_sim {
                     var protector = enemyCards[i];
 
                     // if a fam that has been attacked is not allowed to protect (like in the case of AoE), continue
-                    if (targetsAttacked != null && targetsAttacked.ContainsKey(protector.id) && targetsAttacked[protector.id]) {
+                    if (targetsAttacked != null && targetsAttacked.ContainsKey(protector.id)) {
                         continue;
                     }
 

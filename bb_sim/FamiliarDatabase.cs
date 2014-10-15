@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using Newtonsoft.Json;
 
 namespace bb_sim {
     // a simple class that acts like a lazy store of different familiar lists
@@ -112,10 +114,23 @@ namespace bb_sim {
         public int[] stats;
         public List<int> skills; 
         public int autoAttack;
+
+        public override string ToString() {
+            return fullName;
+        }
     }
 
     class FamDatabase {
-        private static Dictionary<int, CardInfo> db;
+        public static Dictionary<int, CardInfo> db;
+
+        static FamDatabase() {
+            string fams = File.ReadAllText("cards.json");
+            JsonConvert.DefaultSettings = () => new JsonSerializerSettings {
+                MissingMemberHandling = MissingMemberHandling.Error
+            };
+
+            db = JsonConvert.DeserializeObject<Dictionary<int, CardInfo>>(fams);
+        }
 
         public static CardInfo get(int id) {
             return db[id];
