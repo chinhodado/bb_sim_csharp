@@ -122,6 +122,7 @@ namespace bb_sim {
 
     class FamDatabase {
         public static Dictionary<int, CardInfo> db;
+        public static Dictionary<string, int> nameToId = new Dictionary<string, int>(); 
 
         static FamDatabase() {
             string fams = File.ReadAllText("cards.json");
@@ -130,6 +131,10 @@ namespace bb_sim {
             };
 
             db = JsonConvert.DeserializeObject<Dictionary<int, CardInfo>>(fams);
+
+            foreach (var entry in db) {
+                nameToId[entry.Value.fullName] = entry.Key;
+            }
         }
 
         public static CardInfo get(int id) {

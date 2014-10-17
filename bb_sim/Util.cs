@@ -17,5 +17,9 @@ namespace bb_sim {
                 list[n] = value;
             }
         }
+
+        public static bool IsValidIndex<T>(this IList<T> list, int index) {
+            return index >= 0 && index < list.Count;
+        }
     }
 }

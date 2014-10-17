@@ -373,7 +373,7 @@ namespace bb_sim {
             }        
         }
 
-        private void processAttackAgainstSingleTarget(Card executor, Card target, Skill skill, double scaledRatio = 0) {
+        private void processAttackAgainstSingleTarget(Card executor, Card target, Skill skill, double scaledRatio = 1) {
             var activated = battleModel.processProtect(executor, target, skill, null, scaledRatio);
 
             // if not protected, proceed with the attack as normal

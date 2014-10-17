@@ -403,6 +403,10 @@ namespace bb_sim {
             justMissed = false;
             justEvaded = false;
         }
+
+        public override string ToString() {
+            return name + " " + id;
+        }
     }
 
     class Stats {

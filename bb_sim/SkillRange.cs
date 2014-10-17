@@ -441,10 +441,12 @@ namespace bb_sim {
                     break;
                 }
                 var currentEnemyIndex = centerEnemy.formationColumn + i;
-                var currentEnemyCard = enemyCards[currentEnemyIndex]; //todo: check this shit
-                if (currentEnemyCard != null && !currentEnemyCard.isDead) {
-                    targetCount++;
-                    targets.Add(enemyCards[currentEnemyIndex]);
+                if (enemyCards.IsValidIndex(currentEnemyIndex)) {
+                    var currentEnemyCard = enemyCards[currentEnemyIndex]; //todo: check this shit
+                    if (currentEnemyCard != null && !currentEnemyCard.isDead) {
+                        targetCount++;
+                        targets.Add(enemyCards[currentEnemyIndex]);
+                    }
                 }
             }
 
